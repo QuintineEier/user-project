@@ -29,7 +29,7 @@ public class Project {
     @Column(nullable = false)
     private int priority;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 

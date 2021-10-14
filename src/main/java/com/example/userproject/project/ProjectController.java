@@ -25,7 +25,7 @@ public class ProjectController {
 
     @GetMapping
     public String index(Model model) {
-        Iterable iter = projectService.getProjectsWithUsername();
+        Iterable iter = projectService.getProjects();
         model.addAttribute("projects", iter);
         return "projects";
     }
