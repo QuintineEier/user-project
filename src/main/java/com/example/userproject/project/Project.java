@@ -1,6 +1,7 @@
 package com.example.userproject.project;
 
 import com.example.userproject.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Project {
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Project() {
