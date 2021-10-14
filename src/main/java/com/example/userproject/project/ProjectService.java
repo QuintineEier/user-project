@@ -32,7 +32,7 @@ public class ProjectService {
                             p.getProjectName(),
                             p.getDescription(),
                             p.getPriority(),
-                            p.getUser() != null ? p.getUser().getName() : "Nameless")
+                            p.getUser() != null ? p.getUser().getName() : "Nameless");
                 })
                 .collect(Collectors.toList());
     }
