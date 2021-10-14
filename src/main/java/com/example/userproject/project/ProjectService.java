@@ -27,8 +27,13 @@ public class ProjectService {
 
     public List<ProjectWithUsername> getProjectsWithUsername() {
         return StreamSupport.stream(projectRepository.findAll().spliterator(), false)
-                .map(p -> new ProjectWithUsername(p.getId(), p.getProjectName(), p.getDescription(), p.getPriority(),
-                        p.getUser() != null ? p.getUser().getName() : "Nameless"))
+                .map( (Project p) -> {
+                    return new ProjectWithUsername(p.getId(),
+                            p.getProjectName(),
+                            p.getDescription(),
+                            p.getPriority(),
+                            p.getUser() != null ? p.getUser().getName() : "Nameless")
+                })
                 .collect(Collectors.toList());
     }
 

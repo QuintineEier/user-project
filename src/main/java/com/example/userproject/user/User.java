@@ -1,6 +1,7 @@
 package com.example.userproject.user;
 
 import com.example.userproject.project.Project;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;

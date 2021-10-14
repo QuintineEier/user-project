@@ -1,11 +1,5 @@
 package com.example.userproject.project;
 
-import com.example.userproject.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-
 public class ProjectWithUsername {
 
     private Long id;
@@ -15,7 +9,11 @@ public class ProjectWithUsername {
     private String username;
 
 
-    public ProjectWithUsername(Long id, String projectName, String description, int priority, String username) {
+    public ProjectWithUsername(Long id,
+                               String projectName,
+                               String description,
+                               int priority,
+                               String username) {
         this.id = id;
         this.projectName = projectName;
         this.description = description;
