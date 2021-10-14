@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello homepage!</title>
+</head>
+<body>
+
+<p> There are <span th:text="${countProjects}"></span> <a href="/projects"> projects</a>
+    made by <span th:text="${countUsers}"></span> <a href="/users"> users</a>.</p>
+
+<p>Links:</p>
+<p><a href="/json/user">Json Users</a></p>
+<p><a href="/json/project">Json Projects</a></p>
+</body>
+</html>

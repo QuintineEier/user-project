@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Projjeecttsss</title>
+</head>
+<body>
+<h1>Projects</h1>
+<table>
+    <thead>
+    <tr>
+        <th th:text="ID">id</th>
+        <th th:text="ProjectName">Project</th>
+        <th th:text="Description">Description</th>
+        <th th:text="Priority">Priority</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="project: ${projects}">
+        <td th:text="${project.id}"></td>
+        <td th:text="${project.projectName}"></td>
+        <td th:text="${project.description}"></td>
+        <td th:text="${project.priority}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>Add a project:</p>
+<form action="#" th:action="@{/projects}" th:object="${project}" method="post">
+    Project title:
+    <input type="text" th:value="${projectName}" name="projectName"/><br />
+    Description:
+    <input type="text" th:value="${description}" name="description"/><br />
+    Priority:
+    <input type="range" min="1" max="10" value="5" name="priority"><br />
+    Deadline:
+    <input type="datetime-local" th:value="${deadline}" name="deadline"><br />
+    User id:
+    <input type="text" th:value="${userId}" name="userId"/><br />
+    <input type="submit" />
+</form>
+
+<p>Links:</p>
+<p><a href="/">Home</a></p>
+<p><a href="/users">Users</a></p>
+<p><a href="/json/user">Json Users</a></p>
+<p><a href="/json/project">Json Projects</a></p>
+
+</body>
+</html>
