@@ -2,6 +2,7 @@ package com.example.userproject.project;
 
 import com.example.userproject.user.User;
 import com.example.userproject.user.UserRepository;
+import com.example.userproject.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,20 +18,21 @@ import java.util.Optional;
 public class ProjectController {
 
     @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectService projectService;
+
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
     public String index(Model model) {
-        Iterable iter = projectRepository.findAll();
+        Iterable iter = projectService.getProjectsWithUsername();
         model.addAttribute("projects", iter);
         return "projects";
     }
 
     @PostMapping
     public String postIndex(@ModelAttribute AddProjectCommand projectCommand) {
-        Optional<User> optionalUser = userRepository.findById(projectCommand.getUserId());
+        Optional<User> optionalUser = userService.findById(projectCommand.getUserId());
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -43,7 +45,7 @@ public class ProjectController {
             project.setDeadline(projectCommand.getDeadline());
             project.setUser(user);
             user.getProjects().add(project);
-            userRepository.save(user);
+            userService.save(user);
         }
 
         return "redirect:/projects";
