@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "json/project")
@@ -17,8 +18,8 @@ public class ProjectJsonController {
     }
 
     @GetMapping
-    public List<Project> getProjects(){
-        return projectService.getProjects();
+    public List<ProjectWithUsername> getProjects() {
+        return projectService.getProjectsWithUsername();
     }
 
     @PostMapping
