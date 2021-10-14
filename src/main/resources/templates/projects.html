@@ -14,6 +14,7 @@
         <th th:text="ProjectName">Project</th>
         <th th:text="Description">Description</th>
         <th th:text="Priority">Priority</th>
+        <th th:text="UserId">User</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
         <td th:text="${project.projectName}"></td>
         <td th:text="${project.description}"></td>
         <td th:text="${project.priority}"></td>
+        <td th:text="${project.user.name}"></td>
     </tr>
     </tbody>
 </table>

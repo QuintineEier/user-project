@@ -40,7 +40,7 @@ public class ProjectController {
             project.setDeadline(projectCommand.getDeadline());
             project.setDescription(projectCommand.getDescription());
             project.setPriority(projectCommand.getPriority());
-            project.setDeadline(projectCommand.getDeadline());
+            // project.setDeadline(projectCommand.getDeadline());
             project.setUser(user);
             user.getProjects().add(project);
             userRepository.save(user);
