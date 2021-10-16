@@ -10,15 +10,15 @@
     <table>
         <thead>
         <tr>
-            <th th:text="ID">ID</th>
             <th th:text="Name">Name</th>
             <th th:text="Email">Email</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user: ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
+            <td><a th:href="@{'/users/' + ${user.id}}"><span th:text="${user.name}"></span></a></td>
+            <!--<td th:text="${user.id}"></td>-->
+            <!--<td th:text="${user.name}"></td>-->
             <td th:text="${user.email}"></td>
         </tr>
         </tbody>

@@ -3,10 +3,9 @@ package com.example.userproject.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/users")
@@ -20,6 +19,18 @@ public class UserController {
         Iterable iter = repository.findAll();
         model.addAttribute("users", iter);
         return "users";
+    }
+
+    @GetMapping(path = "{userId}")
+    public String getSingleUser(@PathVariable("userId") Long userId, Model model) {
+        Optional<User> option = repository.findById(userId);
+        if (option.isPresent()) {
+            model.addAttribute("user", option.get());
+            model.addAttribute("projecten", option.get().getProjects());
+            return "specificUser";
+        } else {
+            return "redirect:/users";
+        }
     }
 
     @PostMapping()

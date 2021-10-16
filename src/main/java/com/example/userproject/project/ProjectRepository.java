@@ -9,4 +9,6 @@ public interface ProjectRepository extends CrudRepository<Project, Long> {
 
     @Query("SELECT s FROM Project s WHERE s.projectName = ?1")
     Optional<Project> findByProjectName(String projectName);
+
+    Optional<Project> findById(Long id);
 }

@@ -10,7 +10,6 @@
 <table>
     <thead>
     <tr>
-        <th th:text="ID">id</th>
         <th th:text="ProjectName">Project</th>
         <th th:text="Description">Description</th>
         <th th:text="Priority">Priority</th>
@@ -18,12 +17,14 @@
     </tr>
     </thead>
     <tbody>
+    <a href="/">Home</a>
     <tr th:each="project: ${projects}">
-        <td th:text="${project.id}"></td>
-        <td th:text="${project.projectName}"></td>
+        <!--<td th:text="${project.id}"></td>-->
+        <td><a th:href="@{'/projects/' + ${project.id}}"><span th:text="${project.projectName}"></span></a></td>
+        <!--<td th:text="${project.projectName}"></td>-->
         <td th:text="${project.description}"></td>
         <td th:text="${project.priority}"></td>
-        <td th:text="${project.user.name}"></td>
+        <td th:text="${project.username}"></td>
     </tr>
     </tbody>
 </table>
@@ -37,7 +38,7 @@
     Priority:
     <input type="range" min="1" max="10" value="5" name="priority"><br />
     Deadline:
-    <input type="datetime-local" th:value="${deadline}" name="deadline"><br />
+    <input type="date" th:value="${deadline}" name="deadline"><br />
     User id:
     <input type="text" th:value="${userId}" name="userId"/><br />
     <input type="submit" />
