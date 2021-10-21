@@ -41,67 +41,32 @@ public class ProjectController {
         if (option.isPresent()) {
             model.addAttribute("project", option.get());
             model.addAttribute("userName", option.get().getUser().getName());
-            //model.addAttribute("userEmail", option.get().getUser().getEmail());
             model.addAttribute("userId", option.get().getUser().getId());
             model.addAttribute("projectId", projectId);
             return "specificProject";
         } else {
             return "redirect:/projects";
         }
-        //Optional<User> optionUser = userRepository.findById()
     }
 
     @PostMapping
     public String postIndex(@ModelAttribute AddProjectCommand projectCommand) {
         Optional<User> optionalUser = userRepository.findById(projectCommand.getUserId());
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-
-            Project project = new Project();
-            project.setProjectName(projectCommand.getProjectName());
-            project.setDeadline(projectCommand.getDeadline());
-            project.setDescription(projectCommand.getDescription());
-            project.setPriority(projectCommand.getPriority());
-
-
-            project.setUser(user);
-            user.getProjects().add(project);
-            userRepository.save(user);
-        }
-
+        projectService.addProject(projectCommand, optionalUser);
         return "redirect:/projects";
     }
 
     @PostMapping("/updateProject")
     public String updateProject(@ModelAttribute Project passedProject) {
         Optional<Project> optionalProject = projectRepository.findById(passedProject.getId());
-        if (optionalProject.isPresent()) {
-            Project existingProject = optionalProject.get();
-            existingProject.setProjectName(passedProject.getProjectName());
-            existingProject.setPriority(passedProject.getPriority());
-            existingProject.setDescription(passedProject.getDescription());
-            projectRepository.save(existingProject);
-        }
+        projectService.updateIfPresent(passedProject, optionalProject);
         return String.format("redirect:/projects/%s", passedProject.getId());
     }
 
     @GetMapping("/removeProject")
     public String removeProject(@RequestParam Long id) {
         Optional<Project> optionalProject = projectRepository.findById(id);
-        if (optionalProject.isPresent()) {
-            projectRepository.deleteById(id);
-        }
+        projectService.removeIfPresent(id, optionalProject);
         return "redirect:/projects";
     }
-
-
-
-
-
-
-
-
-
-
 }

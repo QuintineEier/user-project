@@ -14,6 +14,9 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping()
     public String index(Model model) {
         Iterable iter = repository.findAll();
@@ -41,22 +44,13 @@ public class UserController {
 
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute User passedUser) {
-        Optional<User> optionalUser = repository.findById(passedUser.getId());
-        if (optionalUser.isPresent()) {
-            User existingUser = optionalUser.get();
-            existingUser.setName(passedUser.getName());
-            existingUser.setEmail(passedUser.getEmail());
-            repository.save(existingUser);
-        }
+        userService.updateIfPresent(passedUser);
         return String.format("redirect:/users/%s", passedUser.getId());
     }
 
     @GetMapping("/removeUser")
     public String removeUser(@RequestParam(name = "id") Long id) {
-        Optional<User> optionalUser = repository.findById(id);
-        if (optionalUser.isPresent()) {
-            repository.deleteById(id);
-        }
+        userService.removeIfPresent(id);
         return "redirect:/users";
     }
 }

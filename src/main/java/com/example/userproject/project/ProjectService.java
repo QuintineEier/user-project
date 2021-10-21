@@ -1,11 +1,10 @@
 package com.example.userproject.project;
 
 import com.example.userproject.user.User;
+import com.example.userproject.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,9 +15,12 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository) {
         this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Project> getProjects(){
@@ -52,5 +54,41 @@ public class ProjectService {
             throw new IllegalStateException("Project with id " + projectId + " does not exists");
         }
         projectRepository.deleteById(projectId);
+    }
+
+    public void removeIfPresent(Long id, Optional<Project> optionalProject) {
+        if (optionalProject.isPresent()) {
+            projectRepository.deleteById(id);
+        }
+    }
+
+    public void addProject(AddProjectCommand projectCommand, Optional<User> optionalUser) {
+        if (optionalUser.isPresent()) {
+            saveIfPresent(projectCommand, optionalUser);
+        }
+    }
+
+    public void saveIfPresent(AddProjectCommand projectCommand, Optional<User> optionalUser) {
+        User user = optionalUser.get();
+
+        Project project = new Project();
+        project.setProjectName(projectCommand.getProjectName());
+        project.setDeadline(projectCommand.getDeadline());
+        project.setDescription(projectCommand.getDescription());
+        project.setPriority(projectCommand.getPriority());
+
+        project.setUser(user);
+        user.getProjects().add(project);
+        userRepository.save(user);
+    }
+
+    public void updateIfPresent(Project passedProject, Optional<Project> optionalProject) {
+        if (optionalProject.isPresent()) {
+            Project existingProject = optionalProject.get();
+            existingProject.setProjectName(passedProject.getProjectName());
+            existingProject.setPriority(passedProject.getPriority());
+            existingProject.setDescription(passedProject.getDescription());
+            projectRepository.save(existingProject);
+        }
     }
 }
