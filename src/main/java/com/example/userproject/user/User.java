@@ -31,6 +31,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Project> projects = new HashSet<>();
 
+
+
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
