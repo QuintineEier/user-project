@@ -39,8 +39,22 @@
         <td><a th:href="@{'/users/' + ${userId}}"><span th:text="${userName}"></span></a></td>
        <!-- <td th:text="${userName}"></td>-->
     </tr>
-
 </table>
+
+<form action="#" th:action="@{/projects/updateProject}" th:object="${project}" method="post">
+    <p>Id:</p>
+    <input type="text" th:value="${project.id}" name="id" th:readonly="true"/>
+    <p>Titel:</p>
+    <input type="text" th:value="${project.projectName}" name="projectName"/>
+    <p>Description:</p>
+    <input type="text" th:value="${project.description}" name="description"/>
+    <p>Priority:</p>
+    <input type="text" th:value="${project.priority}" name="priority"/>
+    <br />
+    <input type="submit" />
+</form>
+
+<a th:href="@{'/projects/removeProject?id=' + ${project.id}}">Verwijder project</a>
 
 <p>Links:</p>
 <p><a href="/">Home</a></p>

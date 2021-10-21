@@ -29,6 +29,18 @@
     </tr>
     </tbody>
 </table>
+<form action="#" th:action="@{/users/updateUser}" th:object="${user}" method="post">
+    <p>Id:</p>
+    <input type="text" th:value="${user.id}" name="id" th:readonly="true"/>
+    <p>Name:</p>
+    <input type="text" th:value="${user.name}" name="name"/>
+    <p>Email:</p>
+    <input type="text" th:value="${user.email}" name="email"/>
+    <br />
+    <input type="submit" />
+</form>
+
+<a th:href="@{'/users/removeUser?id=' + ${user.id}}">Verwijder User</a>
 
 <p>Links:</p>
 <p><a href="/">Home</a></p>

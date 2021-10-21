@@ -72,4 +72,36 @@ public class ProjectController {
 
         return "redirect:/projects";
     }
+
+    @PostMapping("/updateProject")
+    public String updateProject(@ModelAttribute Project passedProject) {
+        Optional<Project> optionalProject = projectRepository.findById(passedProject.getId());
+        if (optionalProject.isPresent()) {
+            Project existingProject = optionalProject.get();
+            existingProject.setProjectName(passedProject.getProjectName());
+            existingProject.setPriority(passedProject.getPriority());
+            existingProject.setDescription(passedProject.getDescription());
+            projectRepository.save(existingProject);
+        }
+        return String.format("redirect:/projects/%s", passedProject.getId());
+    }
+
+    @GetMapping("/removeProject")
+    public String removeProject(@RequestParam Long id) {
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if (optionalProject.isPresent()) {
+            projectRepository.deleteById(id);
+        }
+        return "redirect:/projects";
+    }
+
+
+
+
+
+
+
+
+
+
 }
