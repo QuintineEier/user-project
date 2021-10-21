@@ -38,4 +38,25 @@ public class UserController {
         repository.save(user);
         return "redirect:/users";
     }
+
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute User passedUser) {
+        Optional<User> optionalUser = repository.findById(passedUser.getId());
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+            existingUser.setName(passedUser.getName());
+            existingUser.setEmail(passedUser.getEmail());
+            repository.save(existingUser);
+        }
+        return String.format("redirect:/users/%s", passedUser.getId());
+    }
+
+    @GetMapping("/removeUser")
+    public String removeUser(@RequestParam(name = "id") Long id) {
+        Optional<User> optionalUser = repository.findById(id);
+        if (optionalUser.isPresent()) {
+            repository.deleteById(id);
+        }
+        return "redirect:/users";
+    }
 }
