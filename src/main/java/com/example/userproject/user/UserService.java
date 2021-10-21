@@ -32,15 +32,21 @@ public class UserService {
         userRepository.save(user);
     }
 
-    /*
-    public void deleteUser(Long userId) {
-        boolean exists = userRepository.existsById(userId);
-        if (!exists) {
-            throw new IllegalStateException("User with id " + userId + " does not exists");
+    public void removeIfPresent(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            userRepository.deleteById(id);
         }
-        userRepository.deleteById(userId);
     }
 
-     */
+    public void updateIfPresent(User passedUser) {
+        Optional<User> optionalUser = userRepository.findById(passedUser.getId());
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+            existingUser.setName(passedUser.getName());
+            existingUser.setEmail(passedUser.getEmail());
+            userRepository.save(existingUser);
+        }
+    }
 
 }
