@@ -8,7 +8,6 @@ public class ProjectWithUsername {
     private int priority;
     private String username;
 
-
     public ProjectWithUsername(Long id,
                                String projectName,
                                String description,
