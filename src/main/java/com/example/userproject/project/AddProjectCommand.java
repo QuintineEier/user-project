@@ -1,5 +1,7 @@
 package com.example.userproject.project;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class AddProjectCommand {
@@ -8,6 +10,7 @@ public class AddProjectCommand {
     private String description;
     private int priority;
     private Long userId;
+    private boolean finished;
 
     public String getProjectName() {
         return projectName;
@@ -47,5 +50,13 @@ public class AddProjectCommand {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

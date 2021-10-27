@@ -30,6 +30,7 @@ class ProjectServiceTest {
                 "Dit is een project",
                 LocalDate.of(1995, JULY, 29),
                 "Dit is een beschrijving",
+                false,
                 9
         );
         when(repository.findById(1l)).thenReturn(Optional.of(projectTest));

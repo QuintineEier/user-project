@@ -35,6 +35,10 @@
         <td th:text="${project.priority}"></td>
     </tr>
     <tr>
+        <td>Finished: </td>
+        <td th:text="${project.finished}"></td>
+    </tr>
+    <tr>
         <td>User: </td>
         <td><a th:href="@{'/users/' + ${userId}}"><span th:text="${userName}"></span></a></td>
        <!-- <td th:text="${userName}"></td>-->
@@ -55,7 +59,8 @@
     <input type="submit" />
 </form>
 
-<a th:href="@{'/projects/removeProject?id=' + ${project.id}}">Verwijder project</a>
+<a th:href="@{'/projects/removeProject?id=' + ${project.id}}">Remove project</a>
+<a th:href="@{'/projects/setFinished?id=' + ${project.id}}">Finish project</a>
 
 <p>Links:</p>
 <p><a href="/">Home</a></p>

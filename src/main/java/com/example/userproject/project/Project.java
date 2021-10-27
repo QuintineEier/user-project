@@ -29,6 +29,9 @@ public class Project {
     @Column(nullable = false)
     private int priority;
 
+    @Column
+    private boolean finished;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -41,22 +44,26 @@ public class Project {
                    String projectName,
                    LocalDate deadline,
                    String description,
+                   boolean finished,
                    int priority) {
         this.id = id;
         this.projectName = projectName;
         this.deadline = deadline;
         this.description = description;
         this.priority = priority;
+        this.finished = finished;
     }
 
     public Project(String projectName,
                    LocalDate deadline,
                    String description,
+                   boolean finished,
                    int priority) {
         this.projectName = projectName;
         this.deadline = deadline;
         this.description = description;
         this.priority = priority;
+        this.finished = finished;
     }
 
     public Long getId() {
@@ -99,6 +106,14 @@ public class Project {
         this.priority = priority;
     }
 
+    public boolean getFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
     public User getUser() {
         return user;
     }
@@ -115,6 +130,8 @@ public class Project {
                 ", deadline=" + deadline +
                 ", description='" + description + '\'' +
                 ", priority=" + priority +
+                ", finished=" + finished +
+                ", user=" + user +
                 '}';
     }
 }

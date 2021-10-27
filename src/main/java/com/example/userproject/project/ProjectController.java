@@ -69,4 +69,20 @@ public class ProjectController {
         projectService.removeIfPresent(id, optionalProject);
         return "redirect:/projects";
     }
+
+    @GetMapping("/setFinished")
+    public String setFinished(@RequestParam Long id) {
+        Optional<Project> optionalProject = setFinishedIfPresent(id);
+        return String.format("redirect:/projects/%s", optionalProject.get().getId());
+    }
+
+    private Optional<Project> setFinishedIfPresent(Long id) {
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if (optionalProject.isPresent()) {
+            Project existingProject = optionalProject.get();
+            existingProject.setFinished(true);
+            projectRepository.save(existingProject);
+        }
+        return optionalProject;
+    }
 }

@@ -9,12 +9,14 @@
 
 <h1 th:text="${user.name}"></h1>
 <h1 th:text="${user.email}"></h1>
+<p>dob: <span  th:text="${user.dob}"></span></p>
 <table>
     <thead>
     <tr>
         <th th:text="ProjectName">Project Title</th>
         <th th:text="Description">Description</th>
         <th th:text="Priority">Priority</th>
+        <th th:text="Deadline">deadline</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +24,7 @@
         <td><a th:href="@{'/projects/' + ${project.id}}"><span th:text="${project.projectName}"></span></a></td>
         <td th:text="${project.description}"></td>
         <td th:text="${project.priority}"></td>
+        <td th:text="${project.deadline}"></td>
     </tr>
     </tbody>
 </table>

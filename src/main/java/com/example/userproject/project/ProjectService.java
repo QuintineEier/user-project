@@ -76,6 +76,7 @@ public class ProjectService {
         project.setDeadline(projectCommand.getDeadline());
         project.setDescription(projectCommand.getDescription());
         project.setPriority(projectCommand.getPriority());
+        project.setFinished(false);
 
         project.setUser(user);
         user.getProjects().add(project);
