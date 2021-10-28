@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ public class ProjectController {
             model.addAttribute("userName", option.get().getUser().getName());
             model.addAttribute("userId", option.get().getUser().getId());
             model.addAttribute("projectId", projectId);
+            model.addAttribute("daysLeft", projectService.getDaysTillDeadline(option));
             return "specificProject";
         } else {
             return "redirect:/projects";
@@ -72,17 +74,9 @@ public class ProjectController {
 
     @GetMapping("/setFinished")
     public String setFinished(@RequestParam Long id) {
-        Optional<Project> optionalProject = setFinishedIfPresent(id);
+        Optional<Project> optionalProject = projectService.setFinishedIfPresent(id);
         return String.format("redirect:/projects/%s", optionalProject.get().getId());
     }
 
-    private Optional<Project> setFinishedIfPresent(Long id) {
-        Optional<Project> optionalProject = projectRepository.findById(id);
-        if (optionalProject.isPresent()) {
-            Project existingProject = optionalProject.get();
-            existingProject.setFinished(true);
-            projectRepository.save(existingProject);
-        }
-        return optionalProject;
-    }
+
 }
