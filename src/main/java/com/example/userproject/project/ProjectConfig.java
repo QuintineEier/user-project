@@ -11,7 +11,7 @@ import static java.time.Month.*;
 
 @Configuration
 public class ProjectConfig {
-
+/*
     @Bean
     CommandLineRunner commandLineRunner(ProjectRepository repository) {
         return args -> {
@@ -19,6 +19,7 @@ public class ProjectConfig {
                     "Test Project",
                     LocalDate.of(2021, OCTOBER, 16),
                     "This is a description",
+                    false,
                     6
             );
 
@@ -26,6 +27,7 @@ public class ProjectConfig {
                     "Test Project numerous dos",
                     LocalDate.of(2021, NOVEMBER, 22),
                     "This is a description, again",
+                    true,
                     9
             );
 
@@ -34,5 +36,5 @@ public class ProjectConfig {
             );
         };
     }
-
+*/
 }

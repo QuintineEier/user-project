@@ -5,6 +5,8 @@ import com.example.userproject.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -76,6 +78,7 @@ public class ProjectService {
         project.setDeadline(projectCommand.getDeadline());
         project.setDescription(projectCommand.getDescription());
         project.setPriority(projectCommand.getPriority());
+        project.setFinished(false);
 
         project.setUser(user);
         user.getProjects().add(project);
@@ -90,5 +93,24 @@ public class ProjectService {
             existingProject.setDescription(passedProject.getDescription());
             projectRepository.save(existingProject);
         }
+    }
+
+    public Optional<Project> setFinishedIfPresent(Long id) {
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if (optionalProject.isPresent()) {
+            Project existingProject = optionalProject.get();
+            existingProject.setFinished(true);
+            projectRepository.save(existingProject);
+        }
+        return optionalProject;
+    }
+
+    public int getDaysTillDeadline(Optional<Project> option) {
+        LocalDate deadline = option.get().getDeadline();
+        LocalDate today = LocalDate.now();
+
+        Period period = Period.between(today, deadline);
+        int daysTillDeadline = period.getDays();
+        return daysTillDeadline;
     }
 }

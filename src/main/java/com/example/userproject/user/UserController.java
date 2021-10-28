@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 @Controller
@@ -30,6 +32,7 @@ public class UserController {
         if (option.isPresent()) {
             model.addAttribute("user", option.get());
             model.addAttribute("projecten", option.get().getProjects());
+            model.addAttribute("age", userService.getAge(option));
             return "specificUser";
         } else {
             return "redirect:/users";

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,15 @@ public class UserService {
             existingUser.setEmail(passedUser.getEmail());
             userRepository.save(existingUser);
         }
+    }
+
+    public int getAge(Optional<User> option) {
+        LocalDate dob = option.get().getDob();
+        LocalDate today = LocalDate.now();
+
+        Period period = Period.between(dob, today);
+        int age = period.getYears();
+        return age;
     }
 
 }

@@ -12,6 +12,7 @@
         <tr>
             <th th:text="Name">Name</th>
             <th th:text="Email">Email</th>
+            <th th:text="Dob">dob</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
             <!--<td th:text="${user.id}"></td>-->
             <!--<td th:text="${user.name}"></td>-->
             <td th:text="${user.email}"></td>
+            <td th:text="${user.dob}"></td>
         </tr>
         </tbody>
     </table>
@@ -30,6 +32,8 @@
     <input type="text" th:value="${name}" name="name"/>
     <p>Email:</p>
     <input type="text" th:value="${email}" name="email"/>
+    Day of birth:
+    <input type="date" th:value="${dob}" name="dob"><br />
     <input type="submit" />
 </form>
 
