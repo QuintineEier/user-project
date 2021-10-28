@@ -2,11 +2,13 @@ package com.example.userproject.project;
 
 import com.example.userproject.user.User;
 import com.example.userproject.user.UserRepository;
+import com.example.userproject.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -105,12 +107,10 @@ public class ProjectService {
         return optionalProject;
     }
 
-    public int getDaysTillDeadline(Optional<Project> option) {
+    public long getDaysTillDeadline(Optional<Project> option) {
         LocalDate deadline = option.get().getDeadline();
         LocalDate today = LocalDate.now();
 
-        Period period = Period.between(today, deadline);
-        int daysTillDeadline = period.getDays();
-        return daysTillDeadline;
+        return DateUtil.totalDaysBetween(today, deadline);
     }
 }
